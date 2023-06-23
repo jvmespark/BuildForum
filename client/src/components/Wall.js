@@ -34,7 +34,7 @@ function Wall() {
             <div className='wall'>
                 {posts.map(post => 
                     <div className='wallPost' >
-                        <a href={'/'+post.id+'/'+post.title.replace(/ /g,"_")} key={post.id}>
+                        <a href={'/post/'+post.id+'/'+post.title.replace(/ /g,"_")} key={post.id}>
                             <h1 >{post.title}</h1>
                         </a>
                         <h3 >{post.description}</h3>

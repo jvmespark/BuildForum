@@ -1,11 +1,12 @@
 const Pool = require('pg').Pool
 const env = require('./env')
+
 const pool = new Pool({
-  user: env.user,
-  host: env.host,
-  database: env.database,
-  password: env.password,
-  port: env.port,
+  user: env.user(),
+  host: env.host(),
+  database: env.database(),
+  password: env.password(),
+  port: env.port(),
 })
 
 // USER QUERIES

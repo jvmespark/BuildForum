@@ -7,7 +7,6 @@
 
 // pass in data
 
-import React, {useState, useEffect} from 'react';
 import Wall from './../components/Wall'
 
 function Home() {
@@ -15,7 +14,7 @@ function Home() {
   // posts[0].title works
   return (
     <div>
-      <form action="/Submit">
+      <form action="/submit">
         <input type="submit" value="Create Post" />
       </form>
       <Wall/>
