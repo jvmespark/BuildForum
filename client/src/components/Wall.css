@@ -1,0 +1,16 @@
+
+.wall {
+    background-color: lightgray;
+    width: 50%;
+    margin: auto;
+    padding: 1%;
+    margin-top: 10%;
+}
+
+.wallPost {
+    margin: auto;
+    text-align: center;
+    width: 90%;
+    background-color: gray;
+    border-radius: 3px;
+}
