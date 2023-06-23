@@ -30,19 +30,19 @@ function Post() {
       }
     }
 
-    return (
-        <div>
-            <form action="/">
-                <input type="submit" value="Home" />
-            </form>
-            {posts.map(post => 
-                    <div className='Post' >
-                        <h1 >{post.title}</h1>
-                        <h3 >{post.description}</h3>
-                    </div>
-                )}
-        </div>
-    );
+    if (posts[0]) {
+        return (
+            <div>
+                <form action="/">
+                    <input type="submit" value="Home" />
+                </form>
+                <div className='Post' >
+                    <h1 >{posts[0].title}</h1>
+                    <h3 >{posts[0].description}</h3>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default Post;

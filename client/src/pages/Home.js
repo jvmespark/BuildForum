@@ -12,11 +12,31 @@ import Wall from './../components/Wall'
 function Home() {
   // abstract this to pages FrontPage
   // posts[0].title works
+  let loggedIn = false
+
   return (
     <div>
-      <form action="/submit">
+        <form action="/submit">
         <input type="submit" value="Create Post" />
-      </form>
+        </form>
+        { loggedIn ?
+            (
+                <div>
+                    <form action="/profile">
+                        <input type="submit" value="Profile Name" />
+                    </form>
+                    <form action="/messages">
+                        <input type="submit" value="Chat" />
+                    </form>
+                </div>
+            )
+            :
+            (
+            <form action="/login">
+                <input type="submit" value="Login" />
+            </form>
+            )
+        }
       <Wall/>
     </div>
   );

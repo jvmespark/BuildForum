@@ -1,7 +1,7 @@
 function NoPage() {
     return (
         <div>
-            No Page Here
+            404: No Page Here
         </div>
     );
 }
