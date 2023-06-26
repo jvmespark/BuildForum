@@ -32,6 +32,14 @@ app.post('/posts', db.createPost)
 app.put('/posts/:id', db.updatePost)
 app.delete('/posts/:id', db.deletePost)
 
+// Comment queries
+app.get('/comments', db.getComments)
+app.get('/comments/get/:postParent', db.getCommentsOnPost)
+app.get('/comments/:id', db.getCommentById)
+app.post('/comments', db.createComment)
+app.put('/comments/:id', db.updateComment)
+app.delete('/comments/:id', db.deleteComment)
+
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
 })

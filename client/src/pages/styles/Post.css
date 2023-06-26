@@ -6,3 +6,20 @@
     background-color: lightblue;
     border-radius: 3px;
 }
+
+.commentWall {
+    margin: auto;
+    text-align: center;
+    width: 50%;
+}
+
+.comment {
+    background-color: lightgray;
+    padding: 1%;
+    margin: 2%;
+}
+
+.createComment {
+    margin: 0;
+    text-align: center;
+}
