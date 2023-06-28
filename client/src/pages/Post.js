@@ -54,23 +54,24 @@ function Post() {
     }
 
     function CreateComment(e) {
-        e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
         const formJson = Object.fromEntries(formData.entries());
 
         let comment = formJson.comment
         let postParent = id + posts[0].title
-        console.log(postParent)
+        let postername = localStorage.getItem("username")
+        let date = new Date().toLocaleString()
+        console.log(JSON.stringify({postParent, comment, postername, date}))
         // let supplemental materials like images and stuff = formJson.
         if (comment) {
-        fetch('http://localhost:3001/comments', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({postParent, comment}),
-        })
+            fetch('http://localhost:3001/comments', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({postParent, comment, postername, date}),
+            })
         }
         
         document.getElementById('comment').value = ''
@@ -88,6 +89,8 @@ function Post() {
           });
       }
 
+    let username = localStorage.getItem("username")
+
     if (posts[0]) {
         return (
             <div>
@@ -99,18 +102,24 @@ function Post() {
                     <h3 >{posts[0].description}</h3>
                 </div>
                 <div className="createComment">
-                    <form onSubmit={CreateComment}>
-                        <label>
-                                Comment as username <br></br>
-                                <input type="text" name="comment" id="comment"/>
-                        </label>
-                    </form>
+                    {username ? 
+                        <form onSubmit={CreateComment}>
+                            <label>
+                                    Comment as {username} <br></br>
+                                    <input type="text" name="comment" id="comment"/>
+                            </label>
+                        </form>
+                        :
+                        <a href="/login">Login To Comment</a>
+                    }
                 </div>
                 {comments[0] ? 
                     <div className="commentWall">
                         {comments.map(comment => 
                             <div className="comment">
-                                <p >{comment.comment}</p>
+                                <p>{comment.comment}</p>
+                                <a href={'/profile/'+comment.postername}>- {comment.postername}</a>
+                                <p>{comment.date}</p>
                                 <button onClick={() => deleteComment(comment.id)}>Delete</button>
                             </div>
                         )}

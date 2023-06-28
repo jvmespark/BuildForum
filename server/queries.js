@@ -156,9 +156,9 @@ const getCommentById = (request, response) => {
     }
 }
 const createComment = (request, response) => {
-    const { postParent, comment } = request.body
+    const { postParent, comment, postername, date } = request.body
   
-    pool.query('INSERT INTO comments (postParent, comment) VALUES ($1, $2) RETURNING *', [postParent, comment], (error, results) => {
+    pool.query('INSERT INTO comments (postParent, comment, postername, date) VALUES ($1, $2, $3, $4) RETURNING *', [postParent, comment, postername, date], (error, results) => {
       if (error) {
         throw error
       }

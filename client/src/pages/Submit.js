@@ -22,6 +22,8 @@ function Submit() {
         }
         document.getElementById('title').value = ''
         document.getElementById('desc').value = ''
+
+        window.location.replace(document.referrer);
     }
   
     return (

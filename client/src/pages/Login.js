@@ -41,6 +41,7 @@ function Login() {
 
         let username = formJson.username
         let password = formJson.password
+        let loggedIn = false
 
         if (username && password) {
             // check if the username exists and check the password
@@ -49,10 +50,10 @@ function Login() {
                 // check the password
                 if (allUsernames[userExists].password === password) {
                     // login, set to cache data
-                    console.log("login")
+                    loggedIn = true
                 }
                 else {
-                    console.log("wrong")
+                    alert("incorrect login info")
                 }
             }
             else {
@@ -64,10 +65,19 @@ function Login() {
                     },
                     body: JSON.stringify({username, password}),
                 })
+                loggedIn = true;
             }
         }
+
+        if (loggedIn) {
+            // store username in localstorage
+            localStorage.setItem("username", username);
+        }
+
         document.getElementById('username').value = ''
         document.getElementById('password').value = ''
+
+        window.location.replace(document.referrer);
     }
 
     return (

@@ -2,42 +2,47 @@
 
 // front main page which displays all the recent posts
 
-// wall, header with profile, create post, etc.
-// how to redirect posts to their own link? slug routing probably
-
-// pass in data
-
 import Wall from './../components/Wall'
+import './styles/Home.css'
+
+function Logout() {
+    localStorage.removeItem("username")
+}
 
 function Home() {
-  // abstract this to pages FrontPage
-  // posts[0].title works
-  let loggedIn = false
+  let username = localStorage.getItem("username")
 
   return (
     <div>
-        <form action="/submit">
-        <input type="submit" value="Create Post" />
-        </form>
-        { loggedIn ?
-            (
-                <div>
-                    <form action="/profile">
-                        <input type="submit" value="Profile Name" />
-                    </form>
-                    <form action="/messages">
-                        <input type="submit" value="Chat" />
-                    </form>
-                </div>
-            )
-            :
-            (
-            <form action="/login">
-                <input type="submit" value="Login" />
+        <div className="header">
+            <form action="/submit" className="headerForm">
+                <input type="submit" value="Create Post" />
             </form>
-            )
-        }
-      <Wall/>
+            { username ?
+                (
+                    <div className='header'>
+                        <form action="/profile" className="headerForm">
+                            <input type="submit" value={username} />
+                        </form>
+                        <form action="/messages" className="headerForm">
+                            <input type="submit" value="Chat" />
+                        </form>
+                        <form onSubmit={Logout} className="headerForm">
+                            <input type="submit" value="Logout" />
+                        </form>
+                    </div>
+                )
+                :
+                (
+                    <div className='header'>
+                        <form action="/login" className='headerForm'>
+                            <input type="submit" value="Login" />
+                        </form>
+                    </div>
+                )
+            }
+            <Wall/>
+        </div>
     </div>
   );
 }
