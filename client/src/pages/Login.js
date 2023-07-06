@@ -1,6 +1,9 @@
 
 import {React, useState, useEffect} from 'react';
 import './styles/Login.css';
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import NavBar from './../components/NavBar'
 
 // login page
 function Login() {
@@ -82,23 +85,16 @@ function Login() {
 
     return (
         <div>
-            <form action="/">
-                <input type="submit" value="Home" />
-            </form>
+            <NavBar/>
             <div className="loginBox">
+                Login
                 <form onSubmit={LoginForm}>
-                        <label>
-                            Username: <br></br>
-                            <input type="text" name="username" id="username"/>
-                        </label>
-                        <br></br>
-                        <label>
-                            Password: <br></br>
-                            <input type="text" name="password" id="password"/>
-                        </label>
-                        <br></br>
-                        <input type="submit" value="Login" />
-                    </form>
+                    <TextField name="username" id="username" type="text" label="Username" variant="standard" />
+                    <br></br>
+                    <TextField name="password" id="password" type="text" label="Password" variant="standard" />
+                    <br></br>
+                    <Button variant="contained" type="submit" disableElevation>Login</Button>
+                </form>
             </div>
         </div>
     );

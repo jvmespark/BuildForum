@@ -17,7 +17,7 @@ function App() {
         <Route path="/submit" element={<Submit />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/*" element={<Profile />} />
         <Route path="/post/*" element={<Post />} />
         <Route path="*" element={<NoPage />} />
       </Routes>

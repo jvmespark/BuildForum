@@ -1,9 +1,14 @@
 // page for direct message chatting
+import NavBar from './../components/NavBar'
+import './styles/Messages.css'
 
 function Messages() {
     return (
         <div>
-            messages here
+            <NavBar/>
+            <div className="messages">
+                messages here, or no messages
+            </div>
         </div>
     );
 }

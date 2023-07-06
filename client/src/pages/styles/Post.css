@@ -1,11 +1,29 @@
 
+.postBox {
+    margin: auto;
+    text-align: center;
+    width: 70%;
+    padding: 1%;
+    background-color: #323F4B;
+}
+
 .Post {
     margin: auto;
     text-align: center;
     width: 70%;
-    background-color: lightblue;
     border-radius: 3px;
+    color: #F5F7FA;
 }
+
+hr.solid {
+    border-top: 3px solid #1F2933;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    width: 60%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
 
 .commentWall {
     margin: auto;
@@ -14,12 +32,31 @@
 }
 
 .comment {
-    background-color: lightgray;
     padding: 1%;
     margin: 2%;
+    color: #F5F7FA;
+    border: 1px solid #1F2933;
 }
 
 .createComment {
     margin: 0;
     text-align: center;
+    color: #F5F7FA;
+}
+.createCommentUsername {
+    text-decoration: none;
+    color: #00A8CC;
+}
+
+.posterName {
+    text-decoration: none;
+    color: #00A8CC;
+}
+
+.login {
+    color: #616E7C;
+}
+
+.commentDate {
+    opacity: 70%;
 }

@@ -1,5 +1,7 @@
 import './Wall.css';
 import React, {useState, useEffect} from 'react';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Wall() {
     const [posts, setPosts] = useState([]);
@@ -34,16 +36,20 @@ function Wall() {
             <div className='wall'>
                 {posts.map(post => 
                     <div className='wallPost' >
-                        <a href={'/post/'+post.id+'/'+post.title.replace(/ /g,"_")} key={post.id}>
-                            <h1 >{post.title}</h1>
-                        </a>
+                    <a href={'/post/'+post.id+'/'+post.title.replace(/ /g,"_")}>
+                        <h1 >{post.title}</h1>
                         <h3 >{post.description}</h3>
-                        <button onClick={() => deletePost(post.id)}>Delete</button>
+                        <Button variant="contained" startIcon={<DeleteIcon />} onClick={() => deletePost(post.id)} disableElevation>
+                          Delete
+                        </Button>
+                    </a>
                     </div>
                 )}
             </div>
         );
     }
 } 
+
+// <button onClick={() => deletePost(post.id)}>Delete</button>
 
 export default Wall

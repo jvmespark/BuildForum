@@ -1,5 +1,8 @@
 // page to create a post and submit
 import './styles/Submit.css';
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import NavBar from './../components/NavBar'
 
 function Submit() {
 
@@ -11,6 +14,9 @@ function Submit() {
 
         let title = formJson.title
         let description = formJson.description
+        let username = localStorage.getItem("username")
+        // modify psql schema for posts to include username
+        // have a ' sign in to post ' if not signed in
         if (title) {
         fetch('http://localhost:3001/posts', {
             method: 'POST',
@@ -28,22 +34,16 @@ function Submit() {
   
     return (
         <div>
-            <form action="/">
-                <input type="submit" value="Home" />
-            </form>
+            <NavBar/>
             <div className="submitBox">
                 <form onSubmit={CreatePost}>
-                    <label>
-                        Title: <br></br>
-                        <input type="text" name="title" id="title"/>
-                    </label>
+                    <TextField name="title" id="title" type="text" label="Title" variant="filled" fullWidth />
                     <br></br>
-                    <label>
-                        Description: <br></br>
-                        <input type="text" name="description" id="desc"/>
-                    </label>
                     <br></br>
-                    <input type="submit" value="Submit" />
+                    <TextField name="description" id="desc" type="text" label="Text (Optional)" variant="filled" fullWidth />
+                    <br></br>
+                    <br></br>
+                    <Button variant="contained" type="submit" disableElevation>Submit</Button>
                 </form>
             </div>
         </div>

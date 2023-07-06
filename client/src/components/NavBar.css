@@ -1,0 +1,16 @@
+.header {
+    background-color: #3E4C59;
+    height: 50px;
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 7%;
+}
+
+.headerFormL {
+    float: left;
+}
+
+.headerFormR {
+    float: right;
+}

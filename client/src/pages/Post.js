@@ -1,6 +1,10 @@
 // template for a post. main body, comments, etc
 import React, {useState, useEffect} from 'react';
 import './styles/Post.css';
+import NavBar from './../components/NavBar'
+
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { useLocation } from 'react-router-dom'
 
@@ -94,39 +98,39 @@ function Post() {
     if (posts[0]) {
         return (
             <div>
-                <form action="/">
-                    <input type="submit" value="Home" />
-                </form>
-                <div className='Post' >
-                    <h1 >{posts[0].title}</h1>
-                    <h3 >{posts[0].description}</h3>
-                </div>
-                <div className="createComment">
-                    {username ? 
-                        <form onSubmit={CreateComment}>
-                            <label>
-                                    Comment as {username} <br></br>
-                                    <input type="text" name="comment" id="comment"/>
-                            </label>
-                        </form>
-                        :
-                        <a href="/login">Login To Comment</a>
+                <NavBar/>
+                <div className='postBox'>
+                    <div className='Post' >
+                        <h1 >{posts[0].title}</h1>
+                        <h3 >{posts[0].description}</h3>
+                    </div>
+                    <hr class="solid"></hr>
+                    <div className="createComment">
+                        {username ? 
+                            <form onSubmit={CreateComment}>
+                                Comment as <a className='createCommentUsername' href={'/profile/'+ username}>{username}</a><br></br><br></br>
+                                <TextField name="comment" id="comment" type="text" label="" variant="filled" sx={{ width: 1/2 }}/>
+                            </form>
+                            :
+                            <a href="/login" className='login'>Login To Comment</a>
+                        }
+                    </div>
+                    <br></br>
+                    {comments[0] ? 
+                        <div className="commentWall">
+                            {comments.map(comment => 
+                                <div className="comment">
+                                    <a href={'/profile/'+comment.postername} className='posterName'>{comment.postername}</a>
+                                    <p>{comment.comment}</p>
+                                    <p className='commentDate'>{comment.date}</p>
+                                    <button onClick={() => deleteComment(comment.id)}>Delete</button>
+                                </div>
+                            )}
+                        </div>
+                    : 
+                    <p></p>
                     }
                 </div>
-                {comments[0] ? 
-                    <div className="commentWall">
-                        {comments.map(comment => 
-                            <div className="comment">
-                                <p>{comment.comment}</p>
-                                <a href={'/profile/'+comment.postername}>- {comment.postername}</a>
-                                <p>{comment.date}</p>
-                                <button onClick={() => deleteComment(comment.id)}>Delete</button>
-                            </div>
-                        )}
-                    </div>
-                : 
-                <p></p>
-                }
             </div>
         );
     }

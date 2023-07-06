@@ -1,16 +1,27 @@
 
 .wall {
-    background-color: lightgray;
     width: 50%;
     margin: auto;
     padding: 1%;
-    margin-top: 5%;
 }
 
 .wallPost {
-    margin: auto;
+    margin-bottom: 2%;
     text-align: center;
     width: 90%;
-    background-color: gray;
+    background-color: #323F4B;
     border-radius: 3px;
+    padding: 1%;
+}
+
+.wallPost a {
+    text-decoration: none;
+}
+
+.wallPost h1 {
+    color: #F5F7FA;
+}
+
+.wallPost h3 {
+    color: #E4E7EB;
 }
