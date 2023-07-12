@@ -30,7 +30,6 @@ function NavBar() {
                 (
                     <div>
                         <Button variant="contained" className="headerFormR" href="/login" disableElevation> Login </Button>
-                        <Button variant="contained" className="headerFormR" href="/submit" disableElevation sx={{ mr: 2 }}> Create Post </Button>
                     </div>
                 )
             }

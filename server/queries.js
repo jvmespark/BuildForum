@@ -86,9 +86,9 @@ const getPostById = (request, response) => {
     })
 }
 const createPost = (request, response) => {
-    const { title, description } = request.body
+    const { title, description, username } = request.body
   
-    pool.query('INSERT INTO posts (title, description) VALUES ($1, $2) RETURNING *', [title, description], (error, results) => {
+    pool.query('INSERT INTO posts (title, description, username) VALUES ($1, $2, $3) RETURNING *', [title, description, username], (error, results) => {
       if (error) {
         throw error
       }
@@ -97,11 +97,11 @@ const createPost = (request, response) => {
 }
 const updatePost = (request, response) => {
     const id = parseInt(request.params.id)
-    const { title, description } = request.body
+    const { title, description, username } = request.body
   
     pool.query(
-      'UPDATE posts SET title = $1, title = $2 WHERE id = $3',
-      [title, description, id],
+      'UPDATE posts SET title = $1, title = $2, username = $3 WHERE id = $3',
+      [title, description, username, id],
       (error, results) => {
         if (error) {
           throw error

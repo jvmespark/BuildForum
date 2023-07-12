@@ -25,3 +25,12 @@
 .wallPost h3 {
     color: #E4E7EB;
 }
+
+.posterName {
+    text-decoration: none;
+    color: #00A8CC;
+}
+
+.delete {
+    z-index: 1;
+}

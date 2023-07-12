@@ -18,13 +18,13 @@ function Submit() {
         // modify psql schema for posts to include username
         // have a ' sign in to post ' if not signed in
         if (title) {
-        fetch('http://localhost:3001/posts', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({title, description}),
-        })
+            fetch('http://localhost:3001/posts', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({title, description, username}),
+            })
         }
         document.getElementById('title').value = ''
         document.getElementById('desc').value = ''

@@ -30,6 +30,7 @@ function Wall() {
           getPosts();
         });
     }
+    //let masterUser = localStorage.getItem("username") === post.username
     // add update users later
     if (posts) {
         return (
@@ -39,10 +40,18 @@ function Wall() {
                     <a href={'/post/'+post.id+'/'+post.title.replace(/ /g,"_")}>
                         <h1 >{post.title}</h1>
                         <h3 >{post.description}</h3>
-                        <Button variant="contained" startIcon={<DeleteIcon />} onClick={() => deletePost(post.id)} disableElevation>
-                          Delete
-                        </Button>
+                        <a href={'/profile/'+post.username} className='posterName'>{post.username}</a>
                     </a>
+                    {localStorage.getItem("username")===post.username ? 
+                            <div className="delete">
+                              <br></br>
+                              <Button variant="contained" startIcon={<DeleteIcon />} onClick={() => deletePost(post.id)} disableElevation>
+                                Delete
+                              </Button>
+                            </div>
+                            :
+                            <div></div>
+                        }
                     </div>
                 )}
             </div>
