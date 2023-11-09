@@ -40,6 +40,14 @@ app.post('/comments', db.createComment)
 app.put('/comments/:id', db.updateComment)
 app.delete('/comments/:id', db.deleteComment)
 
+// Profile queries
+app.get('/profiles', db.getProfiles)
+app.get('/profiles/:id', db.getProfileById)
+app.get('/profiles/get/:username', db.getProfileByUsername)
+app.post('/profiles', db.createProfile)
+app.put('/profiles/:id', db.updateProfile)
+app.delete('/profiles/:id', db.deleteProfile)
+
 app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
+    console.log(`API running on port ${port}.`)
 })

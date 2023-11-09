@@ -1,29 +1,32 @@
-
-import {React, useState, useEffect} from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import './styles/Login.css';
-import { TextField } from "@mui/material";
-import { Button } from "@mui/material";
-import NavBar from './../components/NavBar'
+import { TextField, Button } from "@mui/material";
+import NavBar from '../components/NavBar'
+
+interface User {
+    username: string;
+    password: string;
+}
 
 // login page
-function Login() {
-    const [allUsernames, setAllUsernames] = useState([]);
+const Login: FC = () => {
+    const [allUsernames, setAllUsernames] = useState<User[]>([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         getUsernames()
-    },[]);
+    }, []);
 
-    const getUsernames=async()=> {
+    const getUsernames = async () => {
         try {
             const response = await fetch('http://localhost:3001/users');
             const json = await response.json()
             setAllUsernames(json)
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
 
-    function checkUserExists(username) {
+    function checkUserExists(username: string): number {
         // go through username array 
         if (allUsernames.length === 0) {
             return -1;
@@ -36,11 +39,11 @@ function Login() {
         return -1;
     }
 
-    function LoginForm(e) {
+    function LoginForm(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const form = e.target;
+        const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        const formJson = Object.fromEntries(formData.entries());
+        const formJson = Object.fromEntries(formData.entries()) as { username: string, password: string };
 
         let username = formJson.username
         let password = formJson.password
@@ -60,13 +63,13 @@ function Login() {
                 }
             }
             else {
-            //if not create the new user
+                //if not create the new user
                 fetch('http://localhost:3001/users', {
                     method: 'POST',
                     headers: {
-                    'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({username, password}),
+                    body: JSON.stringify({ username, password }),
                 })
                 loggedIn = true;
             }
@@ -77,15 +80,15 @@ function Login() {
             localStorage.setItem("username", username);
         }
 
-        document.getElementById('username').value = ''
-        document.getElementById('password').value = ''
+        (document.getElementById('username') as HTMLInputElement).value='';
+        (document.getElementById('password') as HTMLInputElement).value='';
 
         window.location.replace(document.referrer);
     }
 
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <div className="loginBox">
                 Login
                 <form onSubmit={LoginForm}>

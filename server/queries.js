@@ -191,6 +191,70 @@ const deleteComment = (request, response) => {
     })
 }
 
+// PROFILE QUERIES
+
+const getProfiles = (request, response) => {
+  pool.query('SELECT * FROM profiles ORDER BY id ASC', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+const getProfileById = (request, response) => {
+  const id = parseInt(request.params.id)
+
+  pool.query('SELECT * FROM profiles WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+const createProfile = (request, response) => {
+  const { username, photo, bio } = request.body
+
+  pool.query('INSERT INTO profiles (username, photo, bio) VALUES ($1, $2, $3) RETURNING *', [username, photo, bio], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send(`Post added with ID: ${results.rows[0].id}`)
+  })
+}
+const updateProfile = (request, response) => {
+  const id = parseInt(request.params.id)
+  const { username, photo, bio } = request.body
+
+  pool.query(
+    'UPDATE profiles SET username = $1, photo = $2, bio = $3 WHERE id = $3',
+    [title, description, username, id],
+    (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(200).send(`Post modified with ID: ${id}`)
+    }
+  )
+}
+const deleteProfile = (request, response) => {
+  const id = parseInt(request.params.id)
+
+  pool.query('DELETE FROM profiles WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Post deleted with ID: ${id}`)
+  })
+}
+const getProfileByUsername = (request, response) => {
+  const username = request.params.username
+  pool.query('SELECT * FROM profiles WHERE username = $1 ORDER BY id ASC', [username], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 module.exports = {
     getUsers,
@@ -211,4 +275,11 @@ module.exports = {
     createComment,
     updateComment,
     deleteComment,
+
+    getProfiles,
+    getProfileById,
+    createProfile,
+    updateProfile,
+    deleteProfile,
+    getProfileByUsername,
 }

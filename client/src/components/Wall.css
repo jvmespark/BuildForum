@@ -9,8 +9,8 @@
     margin-bottom: 2%;
     text-align: center;
     width: 90%;
-    background-color: #323F4B;
-    border-radius: 3px;
+    background-color: #36393F;
+    border-radius: 10px;
     padding: 1%;
 }
 
@@ -19,18 +19,14 @@
 }
 
 .wallPost h1 {
-    color: #F5F7FA;
+    color: #E4E6EB;
 }
 
 .wallPost h3 {
-    color: #E4E7EB;
+    color: #E4E6EB;
 }
 
 .posterName {
     text-decoration: none;
     color: #00A8CC;
-}
-
-.delete {
-    z-index: 1;
 }

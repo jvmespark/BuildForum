@@ -6,10 +6,10 @@ import Submit from "./pages/Submit";
 import Post from "./pages/Post"
 import NoPage from "./pages/NoPage"
 import Profile from "./pages/Profile"
-
-//<Route path="*" element={<Page />} /> is this slug routing? test it out
+import './App.css'
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
@@ -25,4 +25,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

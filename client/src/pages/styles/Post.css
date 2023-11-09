@@ -4,7 +4,7 @@
     text-align: center;
     width: 70%;
     padding: 1%;
-    background-color: #323F4B;
+    background-color: #36393F;
 }
 
 .Post {
@@ -12,7 +12,7 @@
     text-align: center;
     width: 70%;
     border-radius: 3px;
-    color: #F5F7FA;
+    color: #E4E6EB;
 }
 
 hr.solid {
@@ -34,14 +34,14 @@ hr.solid {
 .comment {
     padding: 1%;
     margin: 2%;
-    color: #F5F7FA;
+    color: #E4E6EB;
     border: 1px solid #1F2933;
 }
 
 .createComment {
     margin: 0;
     text-align: center;
-    color: #F5F7FA;
+    color: #E4E6EB;
 }
 .createCommentUsername {
     text-decoration: none;
