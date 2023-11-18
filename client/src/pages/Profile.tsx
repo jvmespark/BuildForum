@@ -7,6 +7,12 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import './styles/Profile.css';
+import Button from '@mui/material/Button';
+
+function Logout() {
+    localStorage.removeItem("username")
+}
+
 
 interface Profile {
   photo: string;
@@ -52,6 +58,9 @@ const Profile: React.FC = () => {
               <p>{profiles[0].bio}</p>
             </div>
           </div>
+            <form onSubmit={Logout}>
+                <Button variant="contained" type="submit" color="error" size="small" disableElevation sx={{ mr: 2 }}> Log Out </Button>
+            </form>
           <h1>POSTS</h1>
         </div>
       </div>

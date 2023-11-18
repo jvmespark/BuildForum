@@ -1,29 +1,26 @@
-import React from 'react';
 import './NavBar.css'
 import Button from '@mui/material/Button';
 
-function Logout() {
-    localStorage.removeItem("username")
-}
+//<Button variant="contained" className="headerFormR" href="/messages" disableElevation sx={{ mr: 2 }}> Chat </Button>
 
 function NavBar() {
-    const theme = {
-        spacing: 8,
-      }
-
     let username = localStorage.getItem("username")
+    let collegeName = "RPI";
     return (
         <div className="header">
-            <Button variant="contained" className="headerFormL" href="/" disableElevation>Build Forum</Button>
+            <a href={'/'} className='headerLogo'> Campus Brag: {collegeName}</a>
             { username ?
                 (
                     <div>
-                        <Button variant="contained" className="headerFormR" href={'/profile/'+ username} disableElevation > {username} </Button>
-                        <form onSubmit={Logout}>
-                            <Button variant="contained" className="headerFormR" type="submit" disableElevation sx={{ mr: 2 }}> Log Out </Button>
-                        </form>
-                        <Button variant="contained" className="headerFormR" href="/messages" disableElevation sx={{ mr: 2 }}> Chat </Button>
+
+                        <div className="headerUser">
+                            <Button variant="contained" href={'/profile/'+ username} disableElevation > {username} </Button>
+                        </div>
+                        
                         <Button variant="contained" className="headerFormR" href="/submit" disableElevation sx={{ mr: 2 }}> Create Post </Button>
+                    
+                        <div className="App">
+                        </div>
                     </div>
                 )
                 :

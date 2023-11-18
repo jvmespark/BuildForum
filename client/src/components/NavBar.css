@@ -7,8 +7,18 @@
     margin-bottom: 7%;
 }
 
-.headerFormL {
+.headerLogo {
     float: left;
+    font-size: 150%;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+}
+
+.headerUser {
+    float: right;
 }
 
 .headerFormR {
