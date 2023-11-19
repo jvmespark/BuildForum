@@ -2,7 +2,6 @@ import './Wall.css';
 import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 
 import Masonry from '@mui/lab/Masonry';
@@ -44,10 +43,9 @@ function Wall() {
   if (posts) {
     return (
       <div className='wall'>
-        <Box sx={{ width: '100%', flexGrow: 1}}>
-          <Grid container spacing={3} justifyContent="center">
+        <Box sx={{ width: '100%'}}>
+          <Masonry columns={3} spacing={3} sx={{ width: "auto" }}>
             {posts.map(post => (
-              <Grid xs={6}>
               <div className='wallPost' key={post.id}>
                 <a href={'/post/' + post.id + '/' + post.title.replace(/ /g, '_')}>
                   <h1>{post.title}</h1>
@@ -73,50 +71,12 @@ function Wall() {
                   <div></div>
                 )}
               </div>
-              </Grid>
             ))}
-          </Grid>
+          </Masonry>
         </Box>
       </div>
     );
   }
-
-    
-/*
-  if (posts) {
-    return (
-      <div className='wall'>
-        {posts.map(post => (
-          <div className='wallPost' key={post.id}>
-            <a href={'/post/' + post.id + '/' + post.title.replace(/ /g, '_')}>
-              <h1>{post.title}</h1>
-              <h3>{post.description}</h3>
-              <a href={'/profile/' + post.username} className='posterName'>
-                {post.username}
-              </a>
-            </a>
-            {localStorage.getItem('username') === post.username ? (
-              <div className='delete'>
-                <br></br>
-                <Button
-                  variant='contained'
-                  color="error"
-                  size="small"
-                  startIcon={<DeleteIcon />}
-                  onClick={() => deletePost(post.id)}
-                  disableElevation
-                >
-                </Button>
-              </div>
-            ) : (
-              <div></div>
-            )}
-          </div>
-        ))}
-      </div>
-    );
-  }
-  */
 }
 
 export default Wall;

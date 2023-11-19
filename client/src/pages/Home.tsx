@@ -1,5 +1,4 @@
 
-
 // front main page which displays all the recent posts
 
 import Wall from '../components/Wall'
