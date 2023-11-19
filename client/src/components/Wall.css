@@ -1,18 +1,15 @@
 
 .wall {
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .wallPost {
     text-align: center;
     background-color: #36393F;
     border-radius: 10px;
-    width: 40vw;
     padding: 2%;
     font-size: 70%;
-    margin-bottom: 5%;
 }
 
 .wallPost a {
