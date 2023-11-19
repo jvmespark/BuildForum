@@ -3,7 +3,6 @@
 
 import Wall from '../components/Wall'
 import NavBar from '../components/NavBar'
-import './styles/Home.css'
 
 function Home() {
   return (

@@ -10,7 +10,7 @@ import './styles/Profile.css';
 import Button from '@mui/material/Button';
 
 function Logout() {
-    localStorage.removeItem("username")
+    localStorage.removeItem("username");
 }
 
 
