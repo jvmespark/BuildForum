@@ -1,2 +1,2 @@
 # Back End Server
-## Node + PostgreSQL
+## Node + Express + PostgreSQL
