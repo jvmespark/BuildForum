@@ -1,4 +1,4 @@
-# Build Forum  
+# Campus Bulletin
 
 todo:
 - revamp the backend and psql schemas to allow larger posts
