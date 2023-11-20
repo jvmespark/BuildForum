@@ -1,17 +1,21 @@
+/*
+  postgreSQL database queries
+*/
+
 const Pool = require('pg').Pool
-const env = require('./env')
+const configs = require('./configs.json')
 
 const pool = new Pool({
-  user: env.user(),
-  host: env.host(),
-  database: env.database(),
-  password: env.password(),
-  port: env.port(),
+  user: configs.db.user,
+  host: configs.db.host,
+  database: configs.db.database,
+  password: configs.db.password,
+  port: configs.db.port,
 })
 
 // USER QUERIES
 
-const getUsers = (request, response) => {
+module.exports.getUsers = (request, response) => {
     pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
       if (error) {
         throw error
@@ -19,7 +23,7 @@ const getUsers = (request, response) => {
       response.status(200).json(results.rows)
     })
 }
-const getUserById = (request, response) => {
+module.exports.getUserById = (request, response) => {
     const id = parseInt(request.params.id)
   
     pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
@@ -29,7 +33,7 @@ const getUserById = (request, response) => {
       response.status(200).json(results.rows)
     })
 }
-const createUser = (request, response) => {
+module.exports.createUser = (request, response) => {
     const { username, password } = request.body
   
     pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, password], (error, results) => {
@@ -39,7 +43,7 @@ const createUser = (request, response) => {
       response.status(201).send(`User added with ID: ${results.rows[0].id}`)
     })
 }
-const updateUser = (request, response) => {
+module.exports.updateUser = (request, response) => {
     const id = parseInt(request.params.id)
     const { username, password } = request.body
   
@@ -54,7 +58,7 @@ const updateUser = (request, response) => {
       }
     )
 }
-const deleteUser = (request, response) => {
+module.exports.deleteUser = (request, response) => {
     const id = parseInt(request.params.id)
   
     pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
@@ -67,7 +71,7 @@ const deleteUser = (request, response) => {
 
 // POST QUERIES
 
-const getPosts = (request, response) => {
+module.exports.getPosts = (request, response) => {
     pool.query('SELECT * FROM posts ORDER BY id ASC', (error, results) => {
       if (error) {
         throw error
@@ -75,7 +79,7 @@ const getPosts = (request, response) => {
       response.status(200).json(results.rows)
     })
 }
-const getPostById = (request, response) => {
+module.exports.getPostById = (request, response) => {
     const id = parseInt(request.params.id)
   
     pool.query('SELECT * FROM posts WHERE id = $1', [id], (error, results) => {
@@ -85,7 +89,7 @@ const getPostById = (request, response) => {
       response.status(200).json(results.rows)
     })
 }
-const createPost = (request, response) => {
+module.exports.createPost = (request, response) => {
     const { title, description, username } = request.body
   
     pool.query('INSERT INTO posts (title, description, username) VALUES ($1, $2, $3) RETURNING *', [title, description, username], (error, results) => {
@@ -95,7 +99,7 @@ const createPost = (request, response) => {
       response.status(201).send(`Post added with ID: ${results.rows[0].id}`)
     })
 }
-const updatePost = (request, response) => {
+module.exports.updatePost = (request, response) => {
     const id = parseInt(request.params.id)
     const { title, description, username } = request.body
   
@@ -110,7 +114,7 @@ const updatePost = (request, response) => {
       }
     )
 }
-const deletePost = (request, response) => {
+module.exports.deletePost = (request, response) => {
     const id = parseInt(request.params.id)
   
     pool.query('DELETE FROM posts WHERE id = $1', [id], (error, results) => {
@@ -124,7 +128,7 @@ const deletePost = (request, response) => {
 
 // COMMENT QUERIES
 
-const getComments = (request, response) => {
+module.exports.getComments = (request, response) => {
     pool.query('SELECT * FROM comments ORDER BY id ASC', (error, results) => {
       if (error) {
         throw error
@@ -132,7 +136,7 @@ const getComments = (request, response) => {
       response.status(200).json(results.rows)
     })
 }
-const getCommentsOnPost = (request, response) => {
+module.exports.getCommentsOnPost = (request, response) => {
     const postParent = request.params.postParent
     pool.query('SELECT * FROM comments WHERE postParent = $1 ORDER BY id ASC', [postParent], (error, results) => {
       if (error) {
@@ -141,7 +145,7 @@ const getCommentsOnPost = (request, response) => {
       response.status(200).json(results.rows)
     })
 }
-const getCommentById = (request, response) => {
+module.exports.getCommentById = (request, response) => {
     const id = parseInt(request.params.id)
     if (id === -1) {
         console.log("here")
@@ -155,7 +159,7 @@ const getCommentById = (request, response) => {
         })
     }
 }
-const createComment = (request, response) => {
+module.exports.createComment = (request, response) => {
     const { postParent, comment, postername, date } = request.body
   
     pool.query('INSERT INTO comments (postParent, comment, postername, date) VALUES ($1, $2, $3, $4) RETURNING *', [postParent, comment, postername, date], (error, results) => {
@@ -165,7 +169,7 @@ const createComment = (request, response) => {
       response.status(201).send(`Post added with ID: ${results.rows[0].id}`)
     })
 }
-const updateComment = (request, response) => {
+module.exports.updateComment = (request, response) => {
     const id = parseInt(request.params.id)
     const { title, description } = request.body
   
@@ -180,7 +184,7 @@ const updateComment = (request, response) => {
       }
     )
 }
-const deleteComment = (request, response) => {
+module.exports.deleteComment = (request, response) => {
     const id = parseInt(request.params.id)
   
     pool.query('DELETE FROM comments WHERE id = $1', [id], (error, results) => {
@@ -193,7 +197,7 @@ const deleteComment = (request, response) => {
 
 // PROFILE QUERIES
 
-const getProfiles = (request, response) => {
+module.exports.getProfiles = (request, response) => {
   pool.query('SELECT * FROM profiles ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error
@@ -201,7 +205,7 @@ const getProfiles = (request, response) => {
     response.status(200).json(results.rows)
   })
 }
-const getProfileById = (request, response) => {
+module.exports.getProfileById = (request, response) => {
   const id = parseInt(request.params.id)
 
   pool.query('SELECT * FROM profiles WHERE id = $1', [id], (error, results) => {
@@ -211,7 +215,7 @@ const getProfileById = (request, response) => {
     response.status(200).json(results.rows)
   })
 }
-const createProfile = (request, response) => {
+module.exports.createProfile = (request, response) => {
   const { username, photo, bio } = request.body
 
   pool.query('INSERT INTO profiles (username, photo, bio) VALUES ($1, $2, $3) RETURNING *', [username, photo, bio], (error, results) => {
@@ -221,7 +225,7 @@ const createProfile = (request, response) => {
     response.status(201).send(`Post added with ID: ${results.rows[0].id}`)
   })
 }
-const updateProfile = (request, response) => {
+module.exports.updateProfile = (request, response) => {
   const id = parseInt(request.params.id)
   const { username, photo, bio } = request.body
 
@@ -236,7 +240,7 @@ const updateProfile = (request, response) => {
     }
   )
 }
-const deleteProfile = (request, response) => {
+module.exports.deleteProfile = (request, response) => {
   const id = parseInt(request.params.id)
 
   pool.query('DELETE FROM profiles WHERE id = $1', [id], (error, results) => {
@@ -246,7 +250,7 @@ const deleteProfile = (request, response) => {
     response.status(200).send(`Post deleted with ID: ${id}`)
   })
 }
-const getProfileByUsername = (request, response) => {
+module.exports.getProfileByUsername = (request, response) => {
   const username = request.params.username
   pool.query('SELECT * FROM profiles WHERE username = $1 ORDER BY id ASC', [username], (error, results) => {
     if (error) {
@@ -254,32 +258,4 @@ const getProfileByUsername = (request, response) => {
     }
     response.status(200).json(results.rows)
   })
-}
-
-module.exports = {
-    getUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser,
-
-    getPosts,
-    getPostById,
-    createPost,
-    updatePost,
-    deletePost,
-
-    getComments,
-    getCommentsOnPost,
-    getCommentById,
-    createComment,
-    updateComment,
-    deleteComment,
-
-    getProfiles,
-    getProfileById,
-    createProfile,
-    updateProfile,
-    deleteProfile,
-    getProfileByUsername,
 }
