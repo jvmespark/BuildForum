@@ -7,23 +7,6 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Masonry from '@mui/lab/Masonry';
 
-import {
-  S3Client,
-  GetObjectCommand,
-} from "@aws-sdk/client-s3";
-
-import configs from './configs.json'
-
-const credentials = {
-  region: configs.s3.region,
-  credentials: {
-    accessKeyId: configs.s3.accessKeyId,
-    secretAccessKey: configs.s3.secretAccessKey
-  }
-};
-
-const s3Client = new S3Client(credentials);
-
 interface Post {
   id: number;
   title: string;
@@ -57,9 +40,13 @@ function Wall() {
     //  return data;
     //})
     try {
-      const response = await fetch(`http://localhost:3001/media/${serverPath.replace('/','-')}`);
-      console.log(response);
-      return response
+      return fetch(`http://localhost:3001/media/${serverPath.replace('/','-')}`, {
+        method: 'GET',
+      })
+      .then(function(response) {
+        console.log(response)
+        return response;
+      })
     } catch (err) {
       console.log(err);
     }

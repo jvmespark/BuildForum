@@ -33,10 +33,15 @@ const credentials = {
       ACL: 'private',
       Key: serverPath,
       Body: file[0],
-      ContentType: contentType,
-      ContentDisposition: `attachment; filename=${filename}`,
+      ContentType: 'image/jpg',
+      //ContentDisposition: `attachment; filename=${filename}`,
     })
   );
+}
+
+function encode(data) {
+  var str = data.reduce(function(a,b){ return a+String.fromCharCode(b) },'');
+  return btoa(str).replace(/.{76}(?=.)/g,'$&\n');
 }
 
 module.exports.getFile = async function (req, res) {
@@ -48,7 +53,7 @@ module.exports.getFile = async function (req, res) {
 
   try {
     const response = await s3Client.send(command);
-    response.Body.pipe(res);
+    res.send( "data:image/jpeg;base64," + encode(response.Body) );
   } catch (err) {
     console.error(err);
   }

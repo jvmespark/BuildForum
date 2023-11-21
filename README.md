@@ -5,4 +5,4 @@ todo:
 - add a post tagging system
 - fix the profile page to be simple and small
 - add more features to the post page
-- get a aws s3 free account and upload files with posts
+- fix broken image, im not sending the image for some reason. is file[0] not it?
