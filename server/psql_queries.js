@@ -90,9 +90,9 @@ module.exports.getPostById = (request, response) => {
     })
 }
 module.exports.createPost = (request, response) => {
-    const { title, description, username } = request.body
+    const { title, description, username, tags, serverPath } = request.body
   
-    pool.query('INSERT INTO posts (title, description, username) VALUES ($1, $2, $3) RETURNING *', [title, description, username], (error, results) => {
+    pool.query('INSERT INTO posts (title, description, username, tags, media) VALUES ($1, $2, $3, $4, $5) RETURNING *', [title, description, username, tags, serverPath], (error, results) => {
       if (error) {
         throw error
       }

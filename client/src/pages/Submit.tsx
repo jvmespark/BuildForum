@@ -2,7 +2,7 @@ import { FC, FormEvent } from 'react';
 import { TextField, Button } from "@mui/material";
 import NavBar from '../components/NavBar';
 import './styles/Submit.css';
-import {v4 as uuidv4} from 'uuid';
+//import {v4 as uuidv4} from 'uuid';
 
 const Submit: FC = () => {
 
@@ -19,14 +19,15 @@ const Submit: FC = () => {
             let title: string = formJson.title;
             let description: string = formJson.description;
             let username: string | null = localStorage.getItem("username");
-            let serverPath = "";
+            let tags = null;
+            let serverPath = null;
 
             if (formJson.media.size!=0) {
                 let file = formJson.media;
                 let contentType = formJson.media.type;
                 let filename = formJson.media.name;
-                serverPath = uuidv4()+'/'+filename; // store meta data into the psql associated with the post so u can get it back
-                serverPath='test/'+filename;
+                //serverPath = uuidv4()+'/'+filename; // store meta data into the psql associated with the post so u can get it back
+                serverPath='media/'+filename; // overwrite for testing purposes
 
                 fetch('http://localhost:3001/media', {
                 method: 'POST',
@@ -43,7 +44,7 @@ const Submit: FC = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ title, description, username }),
+                body: JSON.stringify({ title, description, username, tags, serverPath }),
             });
         }
         (document.getElementById('title') as HTMLInputElement).value = '';

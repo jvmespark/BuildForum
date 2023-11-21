@@ -1,17 +1,60 @@
 /*
     AWS S3 queries for media
 */
-const {S3} = require('@aws-sdk/client-s3');
+const {
+  S3Client,
+  PutObjectCommand,
+  CreateBucketCommand,
+  DeleteObjectCommand,
+  DeleteBucketCommand,
+  paginateListObjectsV2,
+  GetObjectCommand,
+} = require("@aws-sdk/client-s3");
+
 const configs = require('./configs.json')
 
-const s3Config = {
-  apiVersion: '2006-03-01',
-  accessKeyId: configs.s3.accessKeyId,
-  secretAccessKey: configs.s3.secretAccessKey,
+const credentials = {
   region: configs.s3.region,
- }
- const s3 = new S3(s3Config)
+  credentials: {
+    accessKeyId: configs.s3.accessKeyId,
+    secretAccessKey: configs.s3.secretAccessKey
+  }
+};
 
+ const s3Client = new S3Client(credentials);
+
+ module.exports.uploadFile = (file, contentType, serverPath, filename) => {
+  if (!filename) {
+   filename = serverPath.split('/').pop()
+  }
+  s3Client.send(
+    new PutObjectCommand({
+      Bucket: "bulletin-media",
+      ACL: 'private',
+      Key: serverPath,
+      Body: file[0],
+      ContentType: contentType,
+      ContentDisposition: `attachment; filename=${filename}`,
+    })
+  );
+}
+
+module.exports.getFile = async function (req, res) {
+  var serverPath = req.params.id.replace('-','/')
+  const command = new GetObjectCommand({
+    Bucket: "bulletin-media",
+    Key: serverPath,
+  });
+
+  try {
+    const response = await s3Client.send(command);
+    response.Body.pipe(res);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+ /*
  module.exports.createBucket = (bucketName) => {
   s3.createBucket({
     Bucket: bucketName,    
@@ -28,22 +71,8 @@ const s3Config = {
    }).promise()
 }
 
- module.exports.uploadFile = (file, contentType, serverPath, filename) => {
-  if (!filename) {
-   filename = serverPath.split('/').pop()
-  }
-  return s3.upload({
-   Bucket: BUCKET,
-   ACL: 'private',
-   Key: serverPath,
-   Body: file,
-   ContentType: contentType,
-   ContentDisposition: `attachment; filename=${filename}`,
-  }).promise()
-}
-
 module.exports.deleteFile = (serverPath) => s3.deleteObject({
-  Bucket: BUCKET,
+  Bucket: "bulletin-media",
   Key: serverPath,
 }).promise()
 const serverPaths = [{      
@@ -52,14 +81,15 @@ const serverPaths = [{
    Key: "2.jpg"
 }]
 module.exports.deleteFiles = (serverPaths) => s3.deleteObjects({
-  Bucket: BUCKET,
+  Bucket: "bulletin-media",
   Delete: [{
    Objects: serverPaths
   }]
 }).promise()
 
 const downloadUrl = (key) => s3.getSignedUrlPromise('getObject', {
-  Bucket: BUCKET,
+  Bucket: "bulletin-media",
   Key: key,
   Expires: 1800,
 })
+*/

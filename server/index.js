@@ -65,9 +65,9 @@ if (title) {
 app.post('/media', async (req, res) => {
     // json file sent in as req
     const { file, contentType, serverPath, filename } = req.body;
-    console.log(serverPath)
-    //s3.uploadFile(file, contentType, serverPath, filename);
+    s3.uploadFile(file, contentType, serverPath, filename);
 })
+app.get('/media/:id', s3.getFile)
 
 /*
 const deleteMedia = (id: number) => {
@@ -79,11 +79,12 @@ const deleteMedia = (id: number) => {
       })
     getMedia();
   };
-*/
+
 app.delete('/media/:serverPath', async (req, res) => {
     // serverpath sent in as param 
     s3.deleteFile(req.params.serverPath);
 })
+*/
 
 app.listen(port, () => {
     console.log(`server running on port ${port}.`)
