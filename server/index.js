@@ -67,7 +67,6 @@ app.post('/media', async (req, res) => {
     const { file, contentType, serverPath, filename } = req.body;
     s3.uploadFile(file, contentType, serverPath, filename);
 })
-app.get('/media/:id', s3.getFile)
 
 /*
 const deleteMedia = (id: number) => {

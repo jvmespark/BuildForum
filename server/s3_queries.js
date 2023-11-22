@@ -34,29 +34,9 @@ const credentials = {
       Key: serverPath,
       Body: file[0],
       ContentType: 'image/jpg',
-      //ContentDisposition: `attachment; filename=${filename}`,
+      ContentDisposition: `attachment; filename=${filename}`,
     })
   );
-}
-
-function encode(data) {
-  var str = data.reduce(function(a,b){ return a+String.fromCharCode(b) },'');
-  return btoa(str).replace(/.{76}(?=.)/g,'$&\n');
-}
-
-module.exports.getFile = async function (req, res) {
-  var serverPath = req.params.id.replace('-','/')
-  const command = new GetObjectCommand({
-    Bucket: "bulletin-media",
-    Key: serverPath,
-  });
-
-  try {
-    const response = await s3Client.send(command);
-    res.send( "data:image/jpeg;base64," + encode(response.Body) );
-  } catch (err) {
-    console.error(err);
-  }
 }
 
  /*

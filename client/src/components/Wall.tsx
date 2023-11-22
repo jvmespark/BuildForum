@@ -12,6 +12,8 @@ interface Post {
   title: string;
   description: string;
   username: string;
+  tags: string;
+  media: string;
 }
 
 function Wall() {
@@ -20,37 +22,6 @@ function Wall() {
   useEffect(() => {
     getPosts();
   }, []);
-
-  const getServerPath = async (postid: number) => {
-    return fetch(`http://localhost:3001/posts/${postid}`, {
-      method: 'GET',
-    })
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      return data[0].media;
-    })
-  }
-
-  const getFile = async (postid: number) => {
-    var serverPath = await getServerPath(postid);
-    //getUrlByFileName(serverPath, 'mimes.jpeg').then(function(data) {
-    //  console.log(data);
-    //  return data;
-    //})
-    try {
-      return fetch(`http://localhost:3001/media/${serverPath.replace('/','-')}`, {
-        method: 'GET',
-      })
-      .then(function(response) {
-        console.log(response)
-        return response;
-      })
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const getPosts = async () => {
     try {
@@ -71,7 +42,7 @@ function Wall() {
       })
     getPosts();
   };
-  
+
   if (posts) {
     return (
       <div className='wall'>
@@ -100,7 +71,7 @@ function Wall() {
                   <Chip label="event" size="small" sx={{backgroundColor:"blue"}}/>
                   <h1>{post.title}</h1>
                   <h3>{post.description}</h3>
-                  <img src={getFile(post.id)} alt="post_media"></img>
+                  <img src={`https://bulletin-media.s3.us-east-2.amazonaws.com/${post.media}`}></img>
                   <a href={'/profile/' + post.username} className='posterName'>
                     {post.username}
                   </a>
